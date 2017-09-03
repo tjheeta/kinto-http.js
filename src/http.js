@@ -161,9 +161,10 @@ export default class HTTP {
    * @param  {Number} [options.retry]   Number of retries (default: 0)
    * @return {Promise}
    */
-  async request(url, request = { headers: {} }, options = { retry: 0 }) {
+  async request(url, request = { headers: {} }, options = { retry: 0 }, credentials = 'same-origin') {
     // Ensure default request headers are always set
     request.headers = { ...HTTP.DEFAULT_REQUEST_HEADERS, ...request.headers };
+    request.credentials = credentials;
     // If a multipart body is provided, remove any custom Content-Type header as
     // the fetch() implementation will add the correct one for us.
     if (request.body && typeof request.body.append === "function") {
